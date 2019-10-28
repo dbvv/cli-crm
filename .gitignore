@@ -1,1 +1,4 @@
 .env
+vk_config.*.json
+log.txt
+__pycache__
