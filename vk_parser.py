@@ -13,7 +13,10 @@ vk_session.auth()
 # vk api intance
 vk = vk_session.get_api()
 
-
 def groups():
   global vk
   return vk.groups.get()
+
+def get_friends(user_id):
+    global vk
+    return vk.friends.get(user_id=user_id)
