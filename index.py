@@ -2,7 +2,8 @@ from flask import Flask, json, request
 import vk_parser
 from pony.flask import Pony
 from pony.orm import Database
-from app import *
+from app.models import db
+from app.contacts import contacts_api
 
 api = Flask(__name__, static_folder="web/dist", static_url_path='')
 
@@ -14,8 +15,6 @@ api.config.update(dict(
         'create_db': True,
     }
 ))
-
-db=Database()
 
 @db.on_connect(provider='sqlite')
 def sqlite_case_sensitivity(db, connection):
@@ -35,6 +34,8 @@ def index():
 def get_friends():
     friends = vk_parser.get_friends(request.args.get('user_id'))
     return json.dumps(friends)
+
+api.register_blueprint(contacts_api)
 
 if __name__ == '__main__':
   api.run()

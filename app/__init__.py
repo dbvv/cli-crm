@@ -1,1 +1,1 @@
-__all__ = ['contacts']
+__all__ = ['models']

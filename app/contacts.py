@@ -1,18 +1,12 @@
+from .models import Contact, ContactMeta
+from flask import Blueprint, json
 from pony.orm import *
 
-db = Database()
+contacts_api = Blueprint('contacts', __name__)
 
-class Contact(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    name = Required(str)
-    lastname = Optional(str)
-    phone1 = Optional(str)
-    phone2 = Optional(str)
-    email = Optional(str)
-    notices = Optional(str)
+@contacts_api.route('/contacts/all', methods=['GET'])
+def contacts_all():
+    contacts = select(c for c in Contact)[:]
+    result = {'data': [p.to_dict() for p in contacts]}
+    return json.dumps(result)
 
-class ContactMeta(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    user = Set('Contact')
-    meta_key = Required(str)
-    meta_value = Optional(str)
