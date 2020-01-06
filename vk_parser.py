@@ -7,11 +7,16 @@ load_dotenv(dotenv_path=".env")
 VK_LOGIN = os.getenv("VK_LOGIN")
 VK_PASSWORD = os.getenv("VK_PASSWORD")
 
-vk_session = vk_api.VkApi(VK_LOGIN, VK_PASSWORD)
-vk_session.auth()
+vk = None
+
+try:
+    vk_session = vk_api.VkApi(VK_LOGIN, VK_PASSWORD)
+    vk_session.auth()
+    vk = vk_session.get_api()
+except Exception as e:
+    print("Cannot authorize")
 
 # vk api intance
-vk = vk_session.get_api()
 
 def groups():
   global vk

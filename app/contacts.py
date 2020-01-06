@@ -10,3 +10,10 @@ def contacts_all():
     result = {'data': [p.to_dict() for p in contacts]}
     return json.dumps(result)
 
+@contacts_api.route('/contacts/create', methods=['POST'])
+def contact_create():
+    contact = Contact(name=request.form['name'])
+    commit()
+    #result = {'data': [p.to_dict(]}
+    return json.dumps({'data': [contact.to_dict()]})
+
