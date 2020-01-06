@@ -29,11 +29,11 @@
         name: 'ContactsList',
         data: () => {
           return {
-            contacts: []
+          contacts: []
           }
         },
       mounted() {
-        axios.get('/api/contacts/data')
+        axios.get('/api/contacts/all')
           .then(data => {
             this.contacts = data.data;
           })
